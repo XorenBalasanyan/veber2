@@ -10,7 +10,7 @@ return array(
 	'connectionString' => 'mysql:host=localhost;dbname=dbveber2',
 	'emulatePrepare' => true,
 	'username' => 'root',
-	'password' => 'root',
+	'password' => '',
 	'charset' => 'utf8',
         'tablePrefix' => 'veb_',
 

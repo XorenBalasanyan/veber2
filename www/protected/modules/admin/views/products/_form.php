@@ -114,7 +114,7 @@
 						block += "<input class=\'characteristic-input\' type=\'text\' name=\'Products[char][val"+uniqId+"][]\' value=\'\'>";
 					}
 					block += "</div>";
-					$(".characteristic-box").prepend(block);
+					$(".characteristic-box").append(block);
 				}
 			}
 		});
