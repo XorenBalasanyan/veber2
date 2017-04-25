@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    
+
 	<meta name="language" content="ru">
-        <meta charset="utf-8">    
+        <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta property = "business:contact_data:website" content = "http://ДОМЕН.ru">
@@ -30,7 +30,7 @@
 	<div class="lightbox1" style="display: none;">
 		 <div class="lightbox1-wrapper">
 			<h1 class="title"><span>Оставить заявку</span></h1>
-			<span class="lightbox-close"></span>	
+			<span class="lightbox-close"></span>
 			   <form class="form" action="#">
 			   			<label for="name">Имя*</label>
 			   			<input type="text" name="name">
@@ -49,7 +49,13 @@
 	<div class="top-wr">
 		<div class="main">
 			<ul class="top">
-				<li class="logo"><a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" alt="" /></a></li>
+				<li class="logo">
+                    <a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" alt="" /></a>
+                    <form class="" action="<?=Yii::app()->createUrl('search')?>" method="get">
+                        <input type="text" name="q" value="">
+                        <input type="submit" value="search">
+                    </form>
+                </li>
 				<li class="flag">
 					<div class="right">
 						<p>многоканальный</p>
@@ -60,7 +66,7 @@
 						<button class="zakaz-bg">Оставить заявку</button>
 					</div>
 				</li>
-					
+
 			</ul>
 			<div class="nav">
 					<ul class="inline-block mobile-menu">
@@ -74,7 +80,7 @@
 					</ul>
 					<nav>
 						<ul class="inline-block">
-                                                        <li><?php echo CHtml::link('<span>Главная</span>', array('/')); ?></li> 
+                                                        <li><?php echo CHtml::link('<span>Главная</span>', array('/')); ?></li>
                                                         <li><?php echo CHtml::link('<span>Услуги</span>', array('/services/')); ?></li>
                                                         <li><?php echo CHtml::link('<span>Продукция</span>', array('/products/')); ?></li>
                                                         <li class="hasChild"><?php echo CHtml::link('<span>Реализованные проекты</span>', array('/projects/')); ?>
@@ -93,13 +99,13 @@
 					<button class="cmn-toggle-switch cmn-toggle-switch__htx">
 					  <span>toggle menu</span>
 					</button>
-				</div>	
+				</div>
 		</div>
 	</div>
-	
+
     <?php echo $content; ?>
-    
-    
+
+
 	<footer>
 		<div class="main">
 			<ul class="inline-block foot">
@@ -116,7 +122,7 @@
 				<li class="info">
 					<nav>
 						<ul class="inline-block">
-							<li><?php echo CHtml::link('<span>Главная</span>', array('/')); ?></li> 
+							<li><?php echo CHtml::link('<span>Главная</span>', array('/')); ?></li>
 							<li><?php echo CHtml::link('<span>Услуги</span>', array('/services/')); ?></li>
 							<li><?php echo CHtml::link('<span>Продукция</span>', array('/products/')); ?></li>
 							<li class="hasChild"><?php echo CHtml::link('<span>Проекты</span>', array('/projects/')); ?>
@@ -142,7 +148,7 @@
 							<p>понедельник - пятница,</p>
 							<p>с 9:00 до 18:00 без перерыва</p>
 						</div>
-						
+
 					</div>
 					<div class="clear"></div>
 				</li>
