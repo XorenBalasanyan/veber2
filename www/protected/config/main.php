@@ -74,6 +74,7 @@ return array(
 			'rules'=>array(
                                 'gii'=>'gii/default/login',
                                 'admin' => 'site/login',
+								'sitemap.xml'=>'sitemap/index',
                                 //'admin' => 'admin/default/',
                                 'admin/post'=>'admin/post/',
                                 'products/<alias_1>/<alias_2>' => 'products/viewCard',

@@ -24,6 +24,9 @@ class Products extends CActiveRecord
 	public $icon;
 
     public $char;
+
+    private $_url;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -168,7 +171,7 @@ class Products extends CActiveRecord
                 "`product_id` = :product_id",
                 array(":product_id" => $this->id)
             );
-            
+
             foreach ($this->char as $chars) {
                 if (!empty($chars[0])) {
                     $characteristiccategory = new CharacteristicCategory;
@@ -187,8 +190,21 @@ class Products extends CActiveRecord
         }
 	}
 
-        public function beforeDelete()
+    public function beforeDelete()
 	{
+        $char_id = [];
+        foreach ($this->characteristic_category as $characteristic) {
+            $char_id[] = $characteristic->id;
+        }
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition('characteristic_id',$char_id);
+        Characteristic::model()->deleteAll($criteria);
+
+        CharacteristicCategory::model()->deleteAll(
+            "`product_id` = :product_id",
+            array(":product_id" => $this->id)
+        );
+
 		$this->deleteImage();
 		return parent::beforeDelete();
 	}
@@ -209,4 +225,20 @@ class Products extends CActiveRecord
 		$file = Yii::getPathOfAlias('webroot') . Post::IMAGE_PATH . DIRECTORY_SEPARATOR . $this->img_uri;
 		if (is_file($file)) @unlink($file);
 	}
+
+    public function getUrl()
+    {
+        if ($this->_url === null)
+            $this->_url = '/products/'.$this->category->cpu_uri.'/'.$this->cpu_uri;
+        return $this->_url;
+    }
+
+    public function scopes()
+    {
+        return array(
+            'published'=>array(
+                'condition'=>'t.status = 1',
+            ),
+        );
+    }
 }
