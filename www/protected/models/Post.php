@@ -19,6 +19,7 @@ class Post extends CActiveRecord
         const IMAGE_PATH = '/uploads/news';
 	public $s_content;
 	public $icon;
+    private $_url;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -112,7 +113,7 @@ class Post extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-        
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
@@ -123,8 +124,8 @@ class Post extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-        
-        
+
+
         public function beforeSave() {
 		if ($this->isNewRecord) {
 
@@ -139,7 +140,7 @@ class Post extends CActiveRecord
 		}
 		return parent::beforeSave();
 	}
-        
+
         public function beforeDelete()
 	{
 		$this->deleteImage();
@@ -162,5 +163,21 @@ class Post extends CActiveRecord
 		$file = Yii::getPathOfAlias('webroot') . Post::IMAGE_PATH . DIRECTORY_SEPARATOR . $this->img_uri;
 		if (is_file($file)) @unlink($file);
 	}
-        
+
+    public function getUrl()
+    {
+        if ($this->_url === null)
+            $this->_url = '/post/'.$this->cpu_uri;
+        return $this->_url;
+    }
+
+    public function scopes()
+    {
+        return array(
+            'published'=>array(
+                'condition'=>'t.status = 1',
+            ),
+        );
+    }
+
 }

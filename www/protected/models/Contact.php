@@ -14,6 +14,7 @@
  */
 class Contact extends CActiveRecord
 {
+	private $_url;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -95,6 +96,22 @@ class Contact extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	public function getUrl()
+    {
+        if ($this->_url === null)
+            $this->_url = '/contact/'.$this->cpu_uri;
+        return $this->_url;
+    }
+
+    public function scopes()
+    {
+        return array(
+            'published'=>array(
+                'condition'=>'t.id > 0',
+            ),
+        );
+    }
 
 	/**
 	 * Returns the static model of the specified AR class.

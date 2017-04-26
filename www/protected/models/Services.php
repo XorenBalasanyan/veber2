@@ -19,6 +19,7 @@ class Services extends CActiveRecord
         const IMAGE_PATH = '/uploads/services';
 	public $s_content;
 	public $icon;
+    private $_url;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -123,7 +124,7 @@ class Services extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-        
+
         public function beforeSave() {
 		if ($this->isNewRecord) {
 
@@ -135,7 +136,7 @@ class Services extends CActiveRecord
 		}
 		return parent::beforeSave();
 	}
-        
+
         public function beforeDelete()
 	{
 		$this->deleteImage();
@@ -158,4 +159,20 @@ class Services extends CActiveRecord
 		$file = Yii::getPathOfAlias('webroot') . Post::IMAGE_PATH . DIRECTORY_SEPARATOR . $this->img_uri;
 		if (is_file($file)) @unlink($file);
 	}
+
+    public function getUrl()
+    {
+        if ($this->_url === null)
+            $this->_url = '/services/'.$this->cpu_uri;
+        return $this->_url;
+    }
+
+    public function scopes()
+    {
+        return array(
+            'published'=>array(
+                'condition'=>'t.status = 1',
+            ),
+        );
+    }
 }

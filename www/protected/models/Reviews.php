@@ -19,7 +19,7 @@ class Reviews extends CActiveRecord
 	// сконстанты статусов
 	const STATUS_ACTIVE = 1;
 	const STATUS_HIDE = 0;
-        
+    private $_url;
         public static function statusLabel()
 	{
 		return array (
@@ -29,7 +29,7 @@ class Reviews extends CActiveRecord
 	}
 
 	public $image;
-        
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -129,11 +129,15 @@ class Reviews extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-        
-        
+
+
         public function scopes()
 	{
 		return array(
+            'published'=>array(
+                'condition'=>'t.status = 1',
+            ),
+
 			'active'=>array(
 				'condition'=>'status=:status',
 				'params'=>array(
@@ -219,5 +223,11 @@ class Reviews extends CActiveRecord
 		if (is_file($file_orig)) @unlink($file_orig);
 		if (is_file($file_prev)) @unlink($file_prev);
 	}
-        
+
+    public function getUrl()
+    {
+        if ($this->_url === null)
+            $this->_url = '/reviews/'.$this->cpu_uri;
+        return $this->_url;
+    }
 }

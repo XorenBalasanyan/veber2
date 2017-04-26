@@ -16,6 +16,7 @@
  */
 class About extends CActiveRecord
 {
+	private $_url;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -102,6 +103,22 @@ class About extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	public function getUrl()
+    {
+        if ($this->_url === null)
+            $this->_url = '/about/'.$this->cpu_uri;
+        return $this->_url;
+    }
+
+    public function scopes()
+    {
+        return array(
+            'published'=>array(
+                'condition'=>'t.status = 1',
+            ),
+        );
+    }
 
 	/**
 	 * Returns the static model of the specified AR class.
